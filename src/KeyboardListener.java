@@ -22,7 +22,9 @@ public class KeyboardListener implements KeyListener {
         } else if (keyEvent.getKeyCode() == 38) {
             ui.moveCursorUp();
         } else if (keyEvent.getKeyCode() == 10) {
-            //enter
+            ui.enterCurrentFolder();
+        } else if (keyEvent.getKeyCode() == 8) {
+            ui.goBack();
         }
     }
 

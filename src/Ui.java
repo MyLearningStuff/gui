@@ -65,4 +65,21 @@ public class Ui {
         currentFiles = listFiles;
         displayFiles();
     }
+
+    public void enterCurrentFolder() {
+        var currentFile = currentFiles[cursorPosition];
+
+        if (currentFile.isDirectory()) {
+            currentFiles = currentFile.listFiles();
+            displayFiles();
+        }
+    }
+
+    public void goBack() {
+        //todo should also work in non empty folders
+        if (currentFiles.length > 0) {
+            currentFiles = currentFiles[0].getParentFile().getParentFile().listFiles();
+            displayFiles();
+        }
+    }
 }
