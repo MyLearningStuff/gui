@@ -2,12 +2,15 @@ import javax.swing.*;
 import java.io.File;
 
 public class Ui {
-
+    private final JFrame frame;
     private final JLabel text;
+    private int cursorPosition;
+    private File[] currentFiles;
 
     public Ui() {
-        JFrame frame = new JFrame();
-        frame.setSize(300, 300);
+        cursorPosition = 0;
+        frame = new JFrame();
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -18,21 +21,48 @@ public class Ui {
         text.setText("<html>Hello <br> Hello </html>");
         text.setBounds(0, 20, 200, 50);
 
-        frame.addKeyListener(new KeyboardListener());
         panel.add(text);
     }
 
-    public void displayFiles(File[] files) {
-        if (files == null)
+    public void attachKeyboardListener(KeyboardListener keyboardListener) {
+        frame.addKeyListener(keyboardListener);
+    }
+
+    public void displayFiles() {
+        if (currentFiles == null)
             return;
 
-        String outputString = "<html>";
-        for (File file : files) {
-            outputString = outputString + file.getName() + "<br>";
+        var outputString = "<html>";
+        for (int i = 0; i < currentFiles.length; i++) {
+            File file = currentFiles[i];
+
+            var displayString = file.isDirectory()
+                    ? "Folder " + file.getName()
+                    : "FIle " + file.getName();
+            if (i == cursorPosition) {
+                displayString = "*** " + displayString;
+            }
+
+            outputString = outputString + displayString + "<br>";
         }
 
         outputString = outputString + "</html>";
 
         text.setText(outputString);
+    }
+
+    public void moveCursorUp() {
+        cursorPosition = Math.max(cursorPosition - 1, 0);
+        displayFiles();
+    }
+
+    public void moveCursorDown() {
+        cursorPosition = Math.min(cursorPosition + 1, currentFiles.length - 1);
+        displayFiles();
+    }
+
+    public void updateFiles(File[] listFiles) {
+        currentFiles = listFiles;
+        displayFiles();
     }
 }

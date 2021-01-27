@@ -7,6 +7,9 @@ public class GUI {
         Ui ui = new Ui();
 
         File desktop = new File("C:/Users/Codrin/Desktop");
-        ui.displayFiles(desktop.listFiles());
+        ui.updateFiles(desktop.listFiles());
+
+        var keyBoardListener = new KeyboardListener(ui);
+
     }
 }

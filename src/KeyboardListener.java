@@ -3,20 +3,30 @@ import java.awt.event.KeyListener;
 
 public class KeyboardListener implements KeyListener {
 
+    private final Ui ui;
+
+    public KeyboardListener(Ui ui) {
+        this.ui = ui;
+        ui.attachKeyboardListener(this);
+    }
+
     @Override
     public void keyTyped(KeyEvent keyEvent) {
-        int x = 6;
     }
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
 
-        int x = 6;
+        if (keyEvent.getKeyCode() == 40) {
+            ui.moveCursorDown();
+        } else if (keyEvent.getKeyCode() == 38) {
+            ui.moveCursorUp();
+        } else if (keyEvent.getKeyCode() == 10) {
+            //enter
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
-        int x = 6;
     }
 }
