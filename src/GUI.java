@@ -13,7 +13,7 @@ public class GUI {
         frame.add(panel);
         JLabel label = new JLabel();
 
-        label.setText("Hello");
+        label.setText("Hello world");
         label.setBounds(0, 20, 200, 50);
 
         frame.addKeyListener(new KeyboardListener());
