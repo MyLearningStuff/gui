@@ -1,8 +1,11 @@
 import javax.swing.*;
+import java.io.File;
 
 public class Ui {
 
-    private Ui() {
+    private final JLabel text;
+
+    public Ui() {
         JFrame frame = new JFrame();
         frame.setSize(300, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -10,16 +13,26 @@ public class Ui {
 
         JPanel panel = new JPanel();
         frame.add(panel);
-        JLabel label = new JLabel();
+        text = new JLabel();
 
-        label.setText("Hello");
-        label.setBounds(0, 20, 200, 50);
+        text.setText("<html>Hello <br> Hello </html>");
+        text.setBounds(0, 20, 200, 50);
 
         frame.addKeyListener(new KeyboardListener());
-        panel.add(label);
+        panel.add(text);
     }
 
-    public static void display() {
-        new Ui();
+    public void displayFiles(File[] files) {
+        if (files == null)
+            return;
+
+        String outputString = "<html>";
+        for (File file : files) {
+            outputString = outputString + file.getName() + "<br>";
+        }
+
+        outputString = outputString + "</html>";
+
+        text.setText(outputString);
     }
 }
